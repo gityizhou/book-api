@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>书籍详情</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body th:object="${book}">
+<div class="container" style="max-width: 700px">
+    <h2 class="page-header" style="margin-top: 50px">详情</h2>
+    <div class="well">
+        <p>
+            <strong>书名：</strong><span th:text="*{name}">金庸作品集：天龙八部（修订版）(全5册)</span>
+        </p>
+        <p>
+            <strong>作者：</strong><span th:text="*{author}">金庸</span>
+        </p>
+        <p>
+            <strong>简介：</strong><span th:text="*{description}">修订版是金庸在连载完鹿鼎记，宣布封笔后，花了数年时间来修改连载版的小说，修改后的版本称为修订版，也就是通常所说的三联版，因为三联出版社出版的金庸全集很受欢迎，所以大部分人都称修订版为三联版，这是金庸小说流行最广的版本，本链接为此版本。</span>
+        </p>
+        <p th:switch="*{status}">
+            <strong>状态：</strong>
+            <span th:case="0">想读</span>
+            <span th:case="1">在读</span>
+            <span th:case="2">已读</span>
+        </p>
+    </div>
+    <div class="alert alert-success" th:unless="*{status} == 0">
+        <strong>不错</strong>，你已经开始行动了
+    </div>
+    <div class="alert alert-warning" th:if="*{status} == 0">
+        <strong>注意</strong>，你应该开始行动
+    </div>
+
+    <a href="javascript: history.go(-1)" class="btn btn-default">返回</a>
+</div>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.slim.js"
+        integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+        crossorigin="anonymous"></script>
+</body>
+</html>

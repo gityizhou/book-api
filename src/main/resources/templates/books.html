@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://java.sun.com/JSP/Page">
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Books</title>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="page-header">书单列表</h2>
+    <div class="alert alert-success alert-dismissable fade in" th:unless="${#strings.isEmpty(message)}">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <span th:text="${message}">信息提交成功</span>
+    </div>
+    <p class="text-right"><a href="#" th:href="@{/admin/books/input}" class="btn btn-primary">新增</a></p>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>书名</th>
+            <th>作者</th>
+            <th>简介</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book,iterStat:${page.content}">
+            <td class="col-md-1" th:text="${iterStat.count}">1</td>
+            <td class="col-md-2"><a href="#" th:text="${book.name}" th:href="@{/admin/books/{id}(id=${book.id})}">金庸作品集：天龙八部（修订版）(全5册)</a></td>
+            <td class="col-md-1" th:text="${book.author}">金庸</td>
+            <td class="col-md-4" th:text="${book.description}">修订版是金庸在连载完鹿鼎记，宣布封笔后，花了数年时间来修改连载版的小说，修改后的版本称为修订版，也就是通常所说的三联版，因为三联出版社出版的金庸全集很受欢迎，所以大部分人都称修订版为三联版，这是金庸小说流行最广的版本，本链接为此版本。</td>
+            <td class="col-md-1" th:if="${book.status}==0">想读</td>
+            <td class="col-md-1" th:if="${book.status}==1">在读</td>
+            <td class="col-md-1" th:if="${book.status}==2">已读</td>
+            <td class="col-md-1">
+                <a href="" th:href="@{/admin/books/input/{id}(id=${book.id})}">更新</a>
+                <a href="" th:href="@{/admin/books/delete/{id}(id=${book.id})}">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pager">
+            <li  class="previous"><a href="#" th:href="@{'/admin/books?page=' + ${page.number-1}}" th:unless="${page.first}">上一页</a></li>
+            <li class="next"><a href="#" th:href="@{/admin/books(page=${page.number}+1)}" th:unless="${page.last}">下一页</a></li>
+        </ul>
+    </nav>
+</div>
+
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.slim.js"
+        integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+        crossorigin="anonymous"></script>
+</body>
+</html>
